@@ -1,0 +1,30 @@
+name: student-ml-api:1.0.0
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [automated_test]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Python Setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.7
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        run: pytest -v
+
+      - name: Build Docker Image
+        run: docker build -t student-ml-api:1.0.0 .
+
