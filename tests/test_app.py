@@ -18,7 +18,7 @@ def test_health():
     assert data["version"] == "1.0.0"
 
 
-def test_prediction():
+def test_prediction_success():
     response = client.post(
         "/predict",
         json={"value": 10}
@@ -30,3 +30,21 @@ def test_prediction():
 
     assert data["input"] == 10
     assert data["prediction"] == 20
+
+
+def test_prediction_missing_input():
+    response = client.post(
+        "/predict",
+        json={}
+    )
+
+    assert response.status_code == 422
+
+
+def test_prediction_invalid_input():
+    response = client.post(
+        "/predict",
+        json={"value": "invalid"}
+    )
+
+    assert response.status_code == 422
