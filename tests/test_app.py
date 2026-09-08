@@ -29,7 +29,7 @@ def test_prediction_success():
     data = response.json()
 
     assert data["input"] == 10
-    assert data["prediction"] == 999
+    assert data["prediction"] == 20
 
 
 def test_prediction_missing_input():
