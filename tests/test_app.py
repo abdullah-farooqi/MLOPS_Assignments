@@ -8,15 +8,12 @@ client = TestClient(app)
 
 def test_health():
     response = client.get("/health")
-
     assert response.status_code == 200
-
     data = response.json()
-
     assert data["status"] == "healthy"
     assert data["application"] == "student-ml-api"
-    assert data["version"] == "1.0.0"
-
+    assert data["application_version"] == "1.1.0"
+    assert data["model_version"] == "model-1"
 
 def test_prediction_success():
     response = client.post(
